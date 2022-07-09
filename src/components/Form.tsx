@@ -1,19 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 
-export default function Form() {
-    const [name, setName] = useState<string>();
-    const handleSubmit = (e: any ) => {
-      e.preventDefault();
-    }
-  
+
+interface FormProps {
+	onQuerySubmitted: (event: React.SyntheticEvent) => void,
+	query: string,
+	setQuery: React.Dispatch<React.SetStateAction<string>>
+}
+
+export const Form: React.FC<FormProps> = ({onQuerySubmitted, query, setQuery}) => {
+
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onQuerySubmitted}>
         <label>Name:</label>
         <br />
         <input 
           type='text' 
-          value={name}
-          onChange={(e: React.ChangeEvent) => setName((e.target as HTMLInputElement).value)}
+          value={query}
+		  name='query'
+          onChange={(e: React.ChangeEvent) => setQuery((e.target as HTMLInputElement).value)}
         />
         <input 
           type='submit' 
